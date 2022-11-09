@@ -27,12 +27,35 @@ void testPairToNumber(
     assert(pairNumber == expectedPairNumber);
 }
 
+void printColorCoding()
+{
+    ColorPair colorPair;
+	enum MajorColor major;
+    enum MinorColor minor;
+	int pairNumber = 0;
+	char colorPairNames[MAX_COLORPAIR_NAME_CHARS];
+	
+	for (major = 0; major < numberOfMajorColors; major++)
+	{
+		for (minor = 0; minor < numberOfMinorColors; minor++)
+		{
+			colorPair.majorColor = major;
+			colorPair.minorColor = minor;
+			pairNumber = GetPairNumberFromColor(&colorPair);
+			ColorPairToString(&colorPair, colorPairNames);
+			printf("%s is %d\n", colorPairNames, pairNumber);
+		}
+	}
+}
+
 int main() {
     testNumberToPair(4, WHITE, BROWN);
     testNumberToPair(5, WHITE, SLATE);
 
     testPairToNumber(BLACK, ORANGE, 12);
     testPairToNumber(VIOLET, SLATE, 25);
+    
+    printColorCoding();
 
     return 0;
 }
