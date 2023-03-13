@@ -1,3 +1,4 @@
+
 enum MajorColor {WHITE, RED, BLACK, YELLOW, VIOLET};
 enum MinorColor {BLUE, ORANGE, GREEN, BROWN, SLATE};
 
@@ -6,55 +7,14 @@ typedef struct {
     enum MinorColor minorColor;
 } ColorPair;
 
-const char* MajorColorNames[] = {
-    "White", "Red", "Black", "Yellow", "Violet"
-};
+extern const char* MajorColorNames[];
+extern const char* MinorColorNames[];
 
-const char* MinorColorNames[] = {
-    "Blue", "Orange", "Green", "Brown", "Slate"
-};
+extern const int MAX_COLORPAIR_NAME_CHARS;
 
-const int MAX_COLORPAIR_NAME_CHARS = 16;
+extern int numberOfMajorColors;
+extern int numberOfMinorColors;
 
-int numberOfMajorColors =
-    sizeof(MajorColorNames) / sizeof(MajorColorNames[0]);
-	
-int numberOfMinorColors =
-    sizeof(MinorColorNames) / sizeof(MinorColorNames[0]);
-
-void ColorPairToString(const ColorPair* colorPair, char* buffer) {
-    sprintf(buffer, "%s %s", MajorColorNames[colorPair->majorColor], MinorColorNames[colorPair->minorColor]);
-}
-
-ColorPair GetColorFromPairNumber(int pairNumber) {
-    ColorPair colorPair;
-    int zeroBasedPairNumber = pairNumber - 1;
-    colorPair.majorColor = (enum MajorColor)(zeroBasedPairNumber / numberOfMinorColors);
-    colorPair.minorColor = (enum MinorColor)(zeroBasedPairNumber % numberOfMinorColors);
-    return colorPair;
-}
-
-int GetPairNumberFromColor(const ColorPair* colorPair) {
-    return colorPair->majorColor * numberOfMinorColors + colorPair->minorColor + 1;
-}
-
-void printColorCoding()
-{
-	ColorPair colorPair;
-	enum MajorColor major;
-	enum MinorColor minor;
-	int pairNumber = 0;
-	char colorPairNames[MAX_COLORPAIR_NAME_CHARS];
-	
-	for (major = 0; major < numberOfMajorColors; major++)
-	{
-		for (minor = 0; minor < numberOfMinorColors; minor++)
-		{
-			colorPair.majorColor = major;
-			colorPair.minorColor = minor;
-			pairNumber = GetPairNumberFromColor(&colorPair);
-			ColorPairToString(&colorPair, colorPairNames);
-			printf("%s is %d\n", colorPairNames, pairNumber);
-		}
-	}
-}
+void ColorPairToString(const ColorPair* colorPair, char* buffer);
+int GetPairNumberFromColor(const ColorPair* colorPair);
+ColorPair GetColorFromPairNumber(int pairNumber);
